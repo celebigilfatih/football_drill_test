@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 import { DrillCanvas } from '@/components/DrillCanvas/DrillCanvas';
 
 export default function Home() {

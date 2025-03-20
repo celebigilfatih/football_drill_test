@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef, useEffect, useState } from 'react';
-import { CanvasProps, DrillState, Tool, Position, Player, Ball, Movement, FieldType } from './types';
+import { CanvasProps, DrillState, Tool, Position, Player, Ball, FieldType } from './types';
 import styles from './DrillCanvas.module.css';
 
 export const DrillCanvas: React.FC<CanvasProps> = ({ width, height }) => {
@@ -37,7 +37,7 @@ export const DrillCanvas: React.FC<CanvasProps> = ({ width, height }) => {
     drawMovements(ctx);
     drawCones(ctx);
     drawSticks(ctx);
-  }, [drillState, width, height, fieldType]);
+  }, [drillState, width, height, fieldType, drawField, drawPlayers, drawBalls, drawMovements, drawCones, drawSticks]);
 
   const drawField = (ctx: CanvasRenderingContext2D) => {
     // Draw green background
