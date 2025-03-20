@@ -2,11 +2,13 @@
 
 import React, { useRef, useEffect, useState } from 'react';
 import { CanvasProps, DrillState, Tool, Position, Player, Ball, Movement, FieldType } from './types';
+import styles from './DrillCanvas.module.css';
 
 export const DrillCanvas: React.FC<CanvasProps> = ({ width, height }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [selectedTool, setSelectedTool] = useState<Tool>('select');
   const [fieldType, setFieldType] = useState<FieldType>('full');
+  const [selectedElement, setSelectedElement] = useState<any>(null);
   const [drillState, setDrillState] = useState<DrillState>({
     players: [],
     balls: [],
@@ -271,66 +273,49 @@ export const DrillCanvas: React.FC<CanvasProps> = ({ width, height }) => {
   };
 
   return (
-    <div className="relative">
-      <canvas
-        ref={canvasRef}
-        width={width}
-        height={height}
-        onClick={handleCanvasClick}
-        className="border border-gray-300 rounded-lg"
-      />
-      <div className="absolute top-4 left-4 flex gap-2 bg-white p-2 rounded-lg shadow-md">
-        <select
-          value={fieldType}
-          onChange={(e) => setFieldType(e.target.value as FieldType)}
-          className="px-3 py-1 rounded bg-gray-200 mr-2"
-        >
-          <option value="full">Tam Saha</option>
-          <option value="half">Yarı Saha</option>
-          <option value="custom">Daraltılmış Alan</option>
-        </select>
+    <div className={styles.container}>
+      <div className={styles.fieldTypeSelector}>
         <button
-          onClick={() => setSelectedTool('select')}
-          className={`px-3 py-1 rounded ${selectedTool === 'select' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+          className={`${styles.fieldTypeButton} ${fieldType === 'full' ? styles.active : ''}`}
+          onClick={() => setFieldType('full')}
         >
-          Select
+          Full Field
         </button>
         <button
-          onClick={() => setSelectedTool('player')}
-          className={`px-3 py-1 rounded ${selectedTool === 'player' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+          className={`${styles.fieldTypeButton} ${fieldType === 'half' ? styles.active : ''}`}
+          onClick={() => setFieldType('half')}
         >
-          Player
+          Half Field
         </button>
         <button
-          onClick={() => setSelectedTool('ball')}
-          className={`px-3 py-1 rounded ${selectedTool === 'ball' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+          className={`${styles.fieldTypeButton} ${fieldType === 'custom' ? styles.active : ''}`}
+          onClick={() => setFieldType('custom')}
         >
-          Ball
+          Custom Field
         </button>
-        <button
-          onClick={() => setSelectedTool('cone')}
-          className={`px-3 py-1 rounded ${selectedTool === 'cone' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
-        >
-          Cone
-        </button>
-        <button
-          onClick={() => setSelectedTool('stick')}
-          className={`px-3 py-1 rounded ${selectedTool === 'stick' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
-        >
-          Stick
-        </button>
-        <button
-          onClick={() => setSelectedTool('movement')}
-          className={`px-3 py-1 rounded ${selectedTool === 'movement' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
-        >
-          Movement
-        </button>
-        <button
-          onClick={() => setSelectedTool('delete')}
-          className={`px-3 py-1 rounded ${selectedTool === 'delete' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
-        >
-          Delete
-        </button>
+      </div>
+      <div style={{ position: 'relative' }}>
+        <canvas
+          ref={canvasRef}
+          width={width}
+          height={height}
+          className={styles.canvas}
+          onClick={handleCanvasClick}
+        />
+        {selectedElement && (
+          <div
+            className={styles.elementControls}
+            style={{
+              left: selectedElement.position.x - 5,
+              top: selectedElement.position.y - 5,
+              width: '100%',
+              height: '100%',
+            }}
+          >
+            <div className={styles.resizeHandle} />
+            <div className={styles.rotateHandle} />
+          </div>
+        )}
       </div>
     </div>
   );

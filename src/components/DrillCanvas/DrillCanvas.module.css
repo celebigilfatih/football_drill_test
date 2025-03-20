@@ -1,0 +1,84 @@
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.fieldTypeSelector {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.fieldTypeButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.fieldTypeButton:hover {
+  border-color: #2196F3;
+}
+
+.fieldTypeButton.active {
+  border-color: #2196F3;
+  background: #e3f2fd;
+}
+
+.canvas {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.elementControls {
+  position: absolute;
+  pointer-events: none;
+}
+
+.resizeHandle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: white;
+  border: 2px solid #2196F3;
+  border-radius: 50%;
+  pointer-events: auto;
+  cursor: nw-resize;
+}
+
+.rotateHandle {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border: 2px solid #2196F3;
+  border-radius: 50%;
+  pointer-events: auto;
+  cursor: grab;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rotateHandle::before {
+  content: "↻";
+  color: #2196F3;
+  font-size: 14px;
+}
+
+.selected {
+  outline: 2px solid #2196F3;
+  outline-offset: 2px;
+}
